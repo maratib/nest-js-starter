@@ -399,5 +399,5 @@ dist
 
 # add at the bottom
 
-**/*.env
-!config/env/development.env
+# **/*.env
+# !config/env/development.env

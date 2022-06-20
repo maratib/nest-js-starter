@@ -1,2 +1,2 @@
 # Nest.js Starter
-## with TypeORM
+## with TypeORM, pg, staging, logging,  

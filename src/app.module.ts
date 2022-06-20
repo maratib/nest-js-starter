@@ -7,10 +7,13 @@ import { configuration } from './config/configuration';
 import { UserModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 
+
+console.log(`${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`);
+
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `src/config/env/${process.env.NODE_ENV}.env`,
+      envFilePath: `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
       isGlobal: true,
       load: [configuration],
     }),
@@ -20,4 +23,4 @@ import { DatabaseModule } from './database/database.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
