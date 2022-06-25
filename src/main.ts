@@ -1,12 +1,23 @@
+declare const module: any;
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { json, urlencoded } from 'body-parser';
 import { join } from 'path';
 import { HttpExceptionFilter } from './utils/http-exception-filter.exception';
+import { Logger } from '@nestjs/common';
+import { getLogLevels } from './config';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: getLogLevels(),
+  });
+
+  const config = app.get<ConfigService>(ConfigService);
+  const logger = new Logger('main.ts');
+  const port = config.get('port');
 
   // Add Body parser
   app.use(json({ limit: '50mb' }));
@@ -18,14 +29,19 @@ async function bootstrap() {
   app.enableCors();
 
   // Set view engine
-  // app.useStaticAssets(join(__dirname, '..', 'public'));
-  // app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  // app.setViewEngine('ejs');
+  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.setViewEngine('hbs');
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  await app.listen(3000, () => {
-    console.log('Started at port: 3000');
+  await app.listen(port, () => {
+    logger.debug(`Started at port: ${port}`);
   });
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();

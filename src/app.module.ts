@@ -3,12 +3,10 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { configuration } from './config/configuration';
+import { config } from './config';
 import { UserModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 import * as Joi from '@hapi/joi';
-
-console.log(`${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`);
 
 @Module({
   imports: [
@@ -21,11 +19,9 @@ console.log(`${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`);
         POSTGRES_DB: Joi.string().required(),
         PORT: Joi.number(),
       }),
-      envFilePath: `${process.cwd()}/src/config/env/${
-        process.env.NODE_ENV
-      }.env`,
+      envFilePath: `${process.cwd()}/env/${process.env.NODE_ENV}.env`,
       isGlobal: true,
-      load: [configuration],
+      load: [config],
     }),
     UserModule,
     DatabaseModule,

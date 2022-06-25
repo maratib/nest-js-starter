@@ -1,17 +1,45 @@
 import { UserService } from './user.service';
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
+/**
+ * Controller docs
+ */
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
+  /**
+   * Function docs
+   * @params
+   * @returns null
+   */
   @Get()
-  getUsers() {
-    return this.userService.getUsers();
+  getAll() {
+    return this.userService.getAll();
   }
 
-  @Get('/new')
-  getUsersById() {
-    return this.userService.getUser();
+  /**
+   *
+   * @param id
+   * @returns
+   */
+  @Get(':id')
+  getById(@Param('id') id: number) {
+    return null;
+  }
+
+  @Post()
+  async doPost(@Body() post: object) {
+    return null;
+  }
+
+  @Put(':id')
+  async doUpdate(@Param('id') id: string, @Body() post: object) {
+    return null;
+  }
+
+  @Delete(':id')
+  async doDelete(@Param('id') id: string) {
+    return null;
   }
 }
