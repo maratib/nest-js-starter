@@ -2,12 +2,12 @@ declare const module: any;
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
-import { AppModule } from './app.module';
+import { AppModule } from './v1/app.module';
 import { json, urlencoded } from 'body-parser';
 import { join } from 'path';
 import { HttpExceptionFilter } from './utils/http-exception-filter.exception';
 import { Logger } from '@nestjs/common';
-import { getLogLevels } from './config';
+import { getLogLevels } from './config/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {

@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { UserService } from './user.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
@@ -6,7 +7,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
  */
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService, private readonly configService: ConfigService) {}
 
   /**
    * Function docs

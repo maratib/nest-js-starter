@@ -13,3 +13,12 @@ npx @compodoc/compodoc -p tsconfig.json -s
 # Or add script in package.json
 "docs": "compodoc -p tsconfig.json -s"
 ```
+
+## Migration commands
+```bash
+# Help command
+yarn typeorm:cli
+
+https://www.youtube.com/watch?v=1-MRmLsUrAo
+
+```
