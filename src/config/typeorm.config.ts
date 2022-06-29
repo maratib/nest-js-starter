@@ -1,5 +1,6 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 
 export enum dbTypes {
   mysql = 'mysql',
@@ -18,21 +19,31 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
-      migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-      synchronize: true,
-      logging: true,
+      migrations: ['src/db/migrations/*{.ts,.js}'],
+      synchronize: false,
+      logging: false,
+      extra: {
+        charset: 'utf8mb4_unicode_ci',
+      },
     };
   },
 };
 
-export const typeOrmConfig = {
-  ...typeOrmAsyncConfig,
-  cli: {
-    migrationsDir: __dirname + '/../database/migrations',
-  },
-  extra: {
-    charset: 'utf8mb4_unicode_ci',
-  },
+
+export const AppDataSource = new DataSource({
+  type: 'mysql',
+  host: "localhost",
+  port: 3306,
+  username: "temp",
+  password: "temp",
+  database: "test",
   synchronize: false,
   logging: true,
-};
+  entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  migrations: ['src/db/migrations/*{.ts,.js}'],
+  // entities: [User],
+  // migrations: ['src/migration/*{.ts,.js}'],
+  subscribers: [],
+})
+
+

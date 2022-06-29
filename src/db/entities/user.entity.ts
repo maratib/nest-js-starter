@@ -8,6 +8,9 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'varchar' })
   name: string;
 
+  @Column({ type: 'varchar' })
+  role: string;
+
   @Column({ type: 'varchar', unique: true })
   email: string;
 }

@@ -1,5 +1,5 @@
 # Nest.js Starter
-## with HMR, TypeORM, PG, Staging, Logging, CompoDoc, MVC  
+## with TypeORM, PG/MySQL, Staging, Logging, CompoDoc, MVC  
 
 
 ## CompoDoc

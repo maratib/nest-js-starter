@@ -7,7 +7,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
  */
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService, private readonly configService: ConfigService) {}
+  constructor(private readonly userService: UserService, private readonly configService: ConfigService) { }
 
   /**
    * Function docs
@@ -15,8 +15,9 @@ export class UserController {
    * @returns null
    */
   @Get()
-  getAll() {
-    return this.userService.getAll();
+  async getAll() {
+    return await this.userService.getAll();
+    // return "1234123";
   }
 
   /**
