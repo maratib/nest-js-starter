@@ -1,9 +1,9 @@
+import * as bcrypt from 'bcrypt';
+import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Role } from '@/types';
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
-
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -19,11 +19,11 @@ export class User extends BaseEntity {
   @Column({ type: 'varchar' })
   public password: string;
 
-  // @CreateBooleanColumn({ name: 'active' })
-  // active: boolean;
+  @Column({ type: 'boolean', default: false })
+  public active: string;
 
-  // @CreateDateColumn({ name: 'active' })
-  // blocked: boolean;
+  @Column({ type: 'boolean', default: false })
+  public blocked: string;
 
   @CreateDateColumn({ name: 'created_at', select: false })
   createdAt: Date;
@@ -31,4 +31,9 @@ export class User extends BaseEntity {
   @UpdateDateColumn({ name: 'updated_at', select: false })
   updatedAt: Date;
 
+  @BeforeInsert()
+  async setPassword(password: string) {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(password || this.password, salt);
+  }
 }

@@ -1,14 +1,10 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import {
-  TypeOrmModuleAsyncOptions,
-  TypeOrmModuleOptions,
-} from '@nestjs/typeorm';
+import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export enum dbTypes {
   mysql = 'mysql',
   postgres = 'postgres',
 }
-
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
@@ -37,11 +33,11 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
 
 const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: "localhost",
+  host: 'localhost',
   port: 3306,
-  username: "temp",
-  password: "temp",
-  database: "test",
+  username: 'temp',
+  password: 'temp',
+  database: 'temp',
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   migrations: [__dirname + '/../db/migrations/*{.ts,.js}'],
   cli: {

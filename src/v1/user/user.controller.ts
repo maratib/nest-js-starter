@@ -1,47 +1,28 @@
-import { ConfigService } from '@nestjs/config';
-import { UserService } from './user.service';
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 
-/**
- * Controller docs
- */
+import { User } from '@/db/entities/user.entity';
+import { SETTINGS } from '@/utils/app.utils';
+// import { UserRegisterRequestDto } from './dto/user-register.req.dto';
+
+import { UserService } from './user.service';
+import { UserRegisterRequestDto } from './user-register.req.dto';
+
+@ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService, private readonly configService: ConfigService) { }
+  constructor(private userService: UserService) {}
 
-  /**
-   * Function docs
-   * @params
-   * @returns null
-   */
-  @Get()
-  async getAll() {
-    return await this.userService.getAll();
-    // return "1234123";
-  }
-
-  /**
-   *
-   * @param id
-   * @returns
-   */
-  @Get(':id')
-  getById(@Param('id') id: number) {
-    return null;
-  }
-
-  @Post()
-  async doPost(@Body() post: object) {
-    return null;
-  }
-
-  @Put(':id')
-  async doUpdate(@Param('id') id: string, @Body() post: object) {
-    return null;
-  }
-
-  @Delete(':id')
-  async doDelete(@Param('id') id: string) {
-    return null;
+  @Post('/register')
+  @ApiCreatedResponse({
+    description: 'Created user object as response',
+    type: User,
+  })
+  @ApiBadRequestResponse({ description: 'User cannot register. Try again!' })
+  async doUserRegistration(
+    @Body(SETTINGS.VALIDATION_PIPE)
+    userRegister: UserRegisterRequestDto,
+  ): Promise<User> {
+    return await this.userService.doUserRegistration(userRegister);
   }
 }

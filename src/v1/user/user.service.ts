@@ -1,47 +1,23 @@
+import { Injectable } from '@nestjs/common';
 import { User } from '@/db/entities/user.entity';
-import { Injectable, Logger } from '@nestjs/common';
+import { UserRegisterRequestDto } from './user-register.req.dto';
 
-/**
- * service docs
- */
 @Injectable()
 export class UserService {
-  protected readonly logger = new Logger(this.constructor.name);
-
-  /**
-   * get by id
-   * @param id
-   * @return null
-   */
-  getById(id: number) {
-    throw new Error('Method not implemented.');
-  }
-
-  async getAll() {
-
+  async doUserRegistration(userRegister: UserRegisterRequestDto): Promise<User> {
     const user = new User();
-    return await User.find();
-    // user.name = "Maratib"
-    // user.role = "ADMIN"
-    // user.email = "maratib@gmail.com"
+    user.name = userRegister.name;
+    user.email = userRegister.email;
+    user.password = userRegister.password;
 
-    // await user.save();
-
-    // console.log("Üser saved");
-
-
-    // return '12345678';
+    return await user.save();
   }
 
-  delete(arg0: number) {
-    throw new Error('Method not implemented.');
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return User.findOne({ where: { email } });
   }
 
-  update(arg0: number, post: object) {
-    throw new Error('Method not implemented.');
-  }
-
-  create(post: object) {
-    throw new Error('Method not implemented.');
+  async getUserById(id: number): Promise<User | undefined> {
+    return User.findOne({ where: { id } });
   }
 }

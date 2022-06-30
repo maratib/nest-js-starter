@@ -16,8 +16,17 @@ npx @compodoc/compodoc -p tsconfig.json -s
 
 ## Migration commands
 ```bash
-# Help command
-yarn typeorm schema:sync
+# Create a fresh db based on entities
+yarn new-db
+
+# To generate migrations - only create migration file
+# yarn migration:generate <name>
+yarn migration:generate ActiveBlockedAdded
+
+# To create migrations - will make db changes
+yarn migration:run
+
+
 
 https://www.youtube.com/watch?v=1-MRmLsUrAo
 
