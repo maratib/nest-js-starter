@@ -17,7 +17,7 @@ npx @compodoc/compodoc -p tsconfig.json -s
 ## Migration commands
 ```bash
 # Help command
-yarn typeorm:cli
+yarn typeorm schema:sync
 
 https://www.youtube.com/watch?v=1-MRmLsUrAo
 

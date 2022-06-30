@@ -38,10 +38,5 @@ async function bootstrap() {
   await app.listen(port, () => {
     logger.debug(`Started at port: ${port}`);
   });
-
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
 }
 bootstrap();

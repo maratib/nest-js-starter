@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { UserEntity } from 'src/db/entities/user.entity';
+import { User } from 'src/db/entities/user.entity';
 
 /**
  * service docs
@@ -19,8 +19,8 @@ export class UserService {
 
   async getAll() {
 
-    const user = new UserEntity();
-    return await UserEntity.find();
+    const user = new User();
+    return await User.find();
     // user.name = "Maratib"
     // user.role = "ADMIN"
     // user.email = "maratib@gmail.com"
