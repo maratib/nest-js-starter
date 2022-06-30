@@ -9,10 +9,11 @@ export enum dbTypes {
   postgres = 'postgres',
 }
 
+
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
   inject: [ConfigService],
-  useFactory: async (): Promise<TypeOrmModuleOptions> => {
+  useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
     return {
       type: dbTypes[process.env.DB_TYPE],
       host: process.env.DB_HOST,
@@ -29,7 +30,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
         charset: 'utf8mb4_unicode_ci',
       },
       synchronize: false,
-      logging: true,
+      logging: false,
     };
   },
 };
@@ -52,5 +53,11 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   synchronize: false,
   logging: true,
 };
+
+// const typeOrmConfig: TypeOrmModuleOptions = {
+//   ...typeOrmAsyncConfig,
+//   synchronize: false,
+//   logging: true,
+// };
 
 export default typeOrmConfig;

@@ -1,5 +1,5 @@
+import { User } from '@/db/entities/user.entity';
 import { Injectable, Logger } from '@nestjs/common';
-import { User } from 'src/db/entities/user.entity';
 
 /**
  * service docs

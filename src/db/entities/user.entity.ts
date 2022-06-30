@@ -1,6 +1,5 @@
-
 import { Role } from '@/types';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -19,5 +18,17 @@ export class User extends BaseEntity {
 
   @Column({ type: 'varchar' })
   public password: string;
+
+  // @CreateBooleanColumn({ name: 'active' })
+  // active: boolean;
+
+  // @CreateDateColumn({ name: 'active' })
+  // blocked: boolean;
+
+  @CreateDateColumn({ name: 'created_at', select: false })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', select: false })
+  updatedAt: Date;
 
 }
