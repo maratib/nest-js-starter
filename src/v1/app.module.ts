@@ -4,6 +4,10 @@ import { config, validationSchema } from '@/config/config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 
+import { ScheduleModule } from '@nestjs/schedule';
+import { AppService } from './app.service';
+import { TaskService } from './task.service';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -14,8 +18,9 @@ import { AuthModule } from './auth/auth.module';
     }),
     UserModule,
     AuthModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [],
-  providers: [],
+  providers: [AppService, TaskService],
 })
 export class AppModule {}

@@ -14,7 +14,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: getLogLevels(),
   });
-  console.log(process.env.JWT_SECRET);
 
   const config = app.get<ConfigService>(ConfigService);
   const logger = new Logger('main.ts');
@@ -37,9 +36,11 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  const configApi = new DocumentBuilder().setTitle('App example').setDescription('The API description').setVersion('1.0').addTag('app').build();
+  app.setGlobalPrefix('api/v1');
+
+  const configApi = new DocumentBuilder().setTitle('App example').setDescription('The API description').setVersion('1.0').addTag('App').build();
   const document = SwaggerModule.createDocument(app, configApi);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger', app, document);
 
   await app.listen(port, () => {
     logger.debug(`Started at port: ${port}`);

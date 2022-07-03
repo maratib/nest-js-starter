@@ -26,6 +26,9 @@ yarn migration:generate ActiveBlockedAdded
 # To create migrations - will make db changes
 yarn migration:run
 
+Swager API
+http://localhost:3000/api
+
 
 
 https://www.youtube.com/watch?v=1-MRmLsUrAo
