@@ -1,5 +1,8 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import {
+  TypeOrmModuleAsyncOptions,
+  TypeOrmModuleOptions,
+} from '@nestjs/typeorm';
 
 export enum dbTypes {
   mysql = 'mysql',
@@ -9,7 +12,9 @@ export enum dbTypes {
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
   inject: [ConfigService],
-  useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
+  useFactory: async (
+    configService: ConfigService,
+  ): Promise<TypeOrmModuleOptions> => {
     return {
       type: dbTypes[process.env.DB_TYPE],
       host: process.env.DB_HOST,

@@ -1,11 +1,4 @@
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  HttpException,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { EntityNotFoundError } from 'typeorm';
 
@@ -26,20 +19,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
       case exception instanceof EntityNotFoundError:
         status = HttpStatus.NOT_FOUND;
         data = {
-          message:
-            'The data are you looking for not available. Please try again.',
+          message: 'The data are you looking for not available. Please try again.',
         };
         break;
 
       default:
-        status =
-          exception instanceof HttpException
-            ? exception.getStatus()
-            : HttpStatus.INTERNAL_SERVER_ERROR;
-        data =
-          exception instanceof HttpException
-            ? exception.getResponse()
-            : { message: 'Sorry, something went wrong there. Try again.' };
+        status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+        data = exception instanceof HttpException ? exception.getResponse() : { message: 'Sorry, something went wrong. Try again.' };
         break;
     }
 

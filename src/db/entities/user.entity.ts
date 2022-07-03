@@ -1,33 +1,43 @@
 import * as bcrypt from 'bcrypt';
 import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Role } from '@/types';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
+  @ApiProperty({ description: 'Unique ID of the User' })
   @PrimaryGeneratedColumn()
   public id: number;
 
+  @ApiProperty({ description: 'User Name' })
   @Column({ type: 'varchar' })
   public name: string;
 
+  @ApiProperty({ description: 'User Role' })
   @Column({ type: 'enum', enum: Role, default: Role.USER })
   public role: Role;
 
+  @ApiProperty({ description: 'User email' })
   @Column({ type: 'varchar', unique: true })
   public email: string;
 
+  @ApiProperty({ description: 'Hashed user password' })
   @Column({ type: 'varchar' })
   public password: string;
 
+  @ApiProperty({ description: 'If user is active' })
   @Column({ type: 'boolean', default: false })
-  public active: string;
+  public isActive: string;
 
+  @ApiProperty({ description: 'If user is blocked' })
   @Column({ type: 'boolean', default: false })
-  public blocked: string;
+  public isBlocked: string;
 
+  @ApiProperty({ description: 'User created date' })
   @CreateDateColumn({ name: 'created_at', select: false })
   createdAt: Date;
 
+  @ApiProperty({ description: 'User updated date' })
   @UpdateDateColumn({ name: 'updated_at', select: false })
   updatedAt: Date;
 
