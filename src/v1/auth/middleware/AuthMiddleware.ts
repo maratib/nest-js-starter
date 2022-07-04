@@ -1,10 +1,13 @@
-import { NestMiddleware } from '@nestjs/common';
+import { Logger, NestMiddleware } from '@nestjs/common';
 
 export class AuthMiddleware implements NestMiddleware {
-  constructor() {}
-  use(req: any, res: any, next: (error?: any) => void) {
-    console.log('adsfadsf');
+  private readonly logger = new Logger(this.constructor.name);
 
-    throw new Error('Method not implemented.');
+  constructor() { }
+  use(req: any, res: any, next: (error?: any) => void) {
+    this.logger.debug("I am from AuthMiddleware");
+
+    next();
+
   }
 }

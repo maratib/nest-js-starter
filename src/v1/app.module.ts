@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { config, validationSchema } from '@/config/config';
 import { UserModule } from './user/user.module';
@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AppService } from './app.service';
 import { TaskService } from './task.service';
+import { AuthMiddleware } from './auth/middleware/AuthMiddleware';
 
 @Module({
   imports: [
@@ -23,4 +24,15 @@ import { TaskService } from './task.service';
   controllers: [],
   providers: [AppService, TaskService],
 })
-export class AppModule {}
+export class AppModule {
+
+  /**
+   * Adding middleware 
+   * @param consumer 
+   */
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}

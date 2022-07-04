@@ -10,7 +10,7 @@ export class User extends BaseEntity {
   public id: number;
 
   @ApiProperty({ description: 'User Name' })
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: 100 })
   public name: string;
 
   @ApiProperty({ description: 'User Role' })
@@ -18,11 +18,11 @@ export class User extends BaseEntity {
   public role: Role;
 
   @ApiProperty({ description: 'User email' })
-  @Column({ type: 'varchar', unique: true })
+  @Column({ type: 'varchar', unique: true, length: 100 })
   public email: string;
 
   @ApiProperty({ description: 'Hashed user password' })
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: 100 })
   public password: string;
 
   @ApiProperty({ description: 'If user is active' })
