@@ -7,10 +7,12 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private userRepo: Repository<User>) {}
+  constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) { }
 
   async doUserRegistration(userRegister: UserRegisterDto): Promise<User> {
-    return await this.userRepo.save(userRegister);
+
+    return await this.userRepo.save(this.userRepo.create(userRegister));
+    // return await this.userRepo.save(userRegister);
   }
 
   private async doPagination(options: IPaginationOptions): Promise<Pagination<User>> {

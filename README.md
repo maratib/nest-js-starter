@@ -27,10 +27,25 @@ yarn migration:generate ActiveBlockedAdded
 yarn migration:run
 
 Swager API
-http://localhost:3000/api
+http://localhost:3000/swagger
 
 
 
 https://www.youtube.com/watch?v=1-MRmLsUrAo
 
 ```
+
+## Features 
+1.  TypeORM with migrations added
+2.  JWT Auth added
+3.  TaskService added
+4.  MVC added
+5.  Insomnia backup added
+6.  Staging configuration added
+7.  Logging added
+8.  CompoDoc added
+7.  Swagger added
+
+
+
+

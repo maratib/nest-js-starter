@@ -43,6 +43,8 @@ export class User extends BaseEntity {
 
   @BeforeInsert()
   async setPassword(password: string) {
+    console.log("In Before Insert");
+
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(password || this.password, salt);
   }

@@ -4,12 +4,12 @@ import { UserService } from './user/user.service';
 
 @Injectable()
 export class TaskService {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
   private readonly logger = new Logger(TaskService.name);
-  @Cron('45 * * * * *')
-  handleCron() {
-    this.logger.warn('Called every second is 45');
-  }
+  // @Cron('45 * * * * *')
+  // handleCron() {
+  //   this.logger.warn('Called every second is 45');
+  // }
   //   @Interval(10000)
   //   async handleInterval() {
   //     this.logger.warn('Called every 10 seconds');

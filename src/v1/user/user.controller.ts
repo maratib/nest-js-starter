@@ -12,7 +12,7 @@ import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
 @ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   @Post('/register')
   @ApiCreatedResponse({
@@ -34,12 +34,6 @@ export class UserController {
     description: 'List of Users object as response',
     type: [User],
   })
-  // async getAllUsers(@Body(SETTINGS.PaginationDto) options: IPaginationOptions): Promise<any> {
-  //   return null;
-  // }
-  // async getAllUsers(@Query() query: PaginationDto): Promise<Pagination<User>> {
-  //   return await this.userService.getAllUsers(query);
-  // }
   async getAllUsers(@Query() query: PaginationDto): Promise<Pagination<User>> {
     return await this.userService.getAllUsers(query);
   }
