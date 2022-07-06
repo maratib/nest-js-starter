@@ -3,3 +3,8 @@ export enum Role {
   ADMIN = 'admin',
   ROOT = 'root',
 }
+
+export interface AccessTokenPayload {
+  userId: number;
+  userName: string;
+}

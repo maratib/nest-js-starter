@@ -3,11 +3,14 @@ import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
 import { LoginDto } from '@/utils/app.utils';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Role } from '@/types';
+import { Roles } from './roles.decorator';
+
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
@@ -17,6 +20,7 @@ export class AuthController {
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @Roles(Role.ADMIN)
   @Get('user')
   async user(@Request() req): Promise<any> {
     return req.user;

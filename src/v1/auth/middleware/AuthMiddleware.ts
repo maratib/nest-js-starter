@@ -1,11 +1,35 @@
-import { Logger, NestMiddleware } from '@nestjs/common';
+import { AccessTokenPayload } from '@/types';
+import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
 
+@Injectable()
 export class AuthMiddleware implements NestMiddleware {
   private readonly logger = new Logger(this.constructor.name);
 
   constructor() { }
-  use(req: any, res: any, next: (error?: any) => void) {
-    this.logger.debug("I am from AuthMiddleware");
+  async use(req: Request | any, res: Response, next: () => void) {
+
+    // const bearerHeader = req.headers.authorization;
+    // const accessToken = bearerHeader?.split(' ')[1];
+
+    // if (!bearerHeader || !accessToken) {
+    //   return next();
+    // }
+
+    // let user;
+
+    // try {
+    //   const { userId: id }: AccessTokenPayload = verify(
+    //     accessToken,
+    //     process.env.ACCESS_TOKEN_SECRET,
+    //   );
+    //   user = await this.userService.findOneById(id);
+    // } catch (error) {
+    //   throw new ForbiddenException('Please register or sign in.');
+    // }
+
+
+
+    // this.logger.debug("I am from AuthMiddleware", accessToken);
 
     next();
 

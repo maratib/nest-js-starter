@@ -2,8 +2,8 @@
 ## with TypeORM, PG/MySQL, Staging, Logging, CompoDoc, MVC  
 
 ## Features 
-1.  TypeORM with migrations added
-2.  JWT Auth added
+1.  TypeORM with migrations and seeding
+2.  JWT with role based Authentication 
 3.  TaskService added
 4.  MVC added
 5.  Insomnia backup added
