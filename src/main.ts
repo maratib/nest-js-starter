@@ -38,7 +38,20 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api/v1');
 
-  const configApi = new DocumentBuilder().setTitle('App example').setDescription('The API description').setVersion('1.0').addTag('App').build();
+  const configApi = new DocumentBuilder()
+    .setTitle('Demo Application')
+    .setDescription('Demo API Application')
+    .setVersion('v1')
+    .addTag('Demo')
+    .addBearerAuth()
+    // .addSecurityRequirements('bearerAuth')
+
+    // .addSecurity('ApiKeyAuth', {
+    //   type: 'apiKey',
+    //   in: 'header',
+    //   name: 'Authorization',
+    // })
+    .build();
   const document = SwaggerModule.createDocument(app, configApi);
   SwaggerModule.setup('swagger', app, document);
 

@@ -8,8 +8,6 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AppService } from './app.service';
 import { TaskService } from './task.service';
 import { AuthMiddleware } from './auth/middleware/AuthMiddleware';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './auth/role.guard';
 
 @Module({
   imports: [
@@ -24,22 +22,14 @@ import { RolesGuard } from './auth/role.guard';
     ScheduleModule.forRoot(),
   ],
   controllers: [],
-  providers: [AppService, TaskService,
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard
-    },
-  ],
+  providers: [AppService, TaskService],
 })
 export class AppModule {
-
   /**
-   * Adding middleware 
-   * @param consumer 
+   * Adding middleware
+   * @param consumer
    */
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

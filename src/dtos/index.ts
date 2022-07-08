@@ -1,6 +1,38 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, Length, Matches } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, Length, Matches } from 'class-validator';
+import { toNumber } from '@/utils/cast.helper';
+
 import { MESSAGES, REGEX } from '@/utils/app.utils';
+
+export class LoginDto {
+  @ApiProperty({
+    description: 'Email address of the user',
+    example: 'reachme@amitavroy.com',
+  })
+  @IsNotEmpty()
+  @IsEmail()
+  username: string;
+
+  @ApiProperty({
+    description: 'Password in plain text',
+    example: 'Password@123',
+  })
+  @IsNotEmpty()
+  password: string;
+}
+
+export class PaginationDto {
+  @Transform(({ value }) => toNumber(value, { default: 1, min: 1 }))
+  @IsNumber()
+  @IsOptional()
+  public page: number = 1;
+
+  @Transform(({ value }) => toNumber(value, { default: 2, min: 1 }))
+  @IsNumber()
+  @IsOptional()
+  public limit: number = 2;
+}
 
 export class UserRegisterDto {
   @ApiProperty({

@@ -5,11 +5,11 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService, private jwtTokenService: JwtService) { }
+  constructor(private userService: UserService, private jwtTokenService: JwtService) {}
   async validateUserCredentials(email: string, password: string): Promise<any> {
     const user = await this.userService.getUserByEmail(email);
 
-    if (!user) throw new BadRequestException();
+    if (!user) throw new BadRequestException('User does not exists');
 
     if (!(await bcrypt.compare(password, user.password))) throw new UnauthorizedException();
 

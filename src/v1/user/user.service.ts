@@ -1,16 +1,15 @@
 import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 import { Injectable } from '@nestjs/common';
 import { User } from '@/db/entities/user.entity';
-import { UserRegisterDto } from './user-register.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserRegisterDto } from '@/dtos';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) { }
+  constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) {}
 
   async doUserRegistration(userRegister: UserRegisterDto): Promise<User> {
-
     return await this.userRepo.save(this.userRepo.create(userRegister));
     // return await this.userRepo.save(userRegister);
   }
