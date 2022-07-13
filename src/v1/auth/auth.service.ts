@@ -5,7 +5,7 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService, private jwtTokenService: JwtService) {}
+  constructor(private userService: UserService, private jwtTokenService: JwtService) { }
   async validateUserCredentials(email: string, password: string): Promise<any> {
     const user = await this.userService.getUserByEmail(email);
 
@@ -15,6 +15,15 @@ export class AuthService {
 
     return user;
   }
+
+
+  /**
+   * Description placeholder
+   * @date 13/07/2022 - 4:22:52 pm
+   *
+   * @param {*} user
+   * @returns {{ access_token: any; }}
+   */
   generateToken(user: any) {
     const payload = { username: user.email, sub: user.id };
     return { access_token: this.jwtTokenService.sign(payload) };
