@@ -8,6 +8,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AppService } from './app.service';
 import { TaskService } from './task.service';
 import { AuthMiddleware } from './auth/middleware/AuthMiddleware';
+import { ApiModule } from './api/api.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthMiddleware } from './auth/middleware/AuthMiddleware';
     UserModule,
     AuthModule,
     ScheduleModule.forRoot(),
+    ApiModule,
   ],
   controllers: [],
   providers: [AppService, TaskService],
