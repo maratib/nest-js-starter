@@ -4,27 +4,21 @@ import { lastValueFrom, map } from 'rxjs';
 
 @Injectable()
 export class ApiService {
+  constructor(private readonly httpService: HttpService) {}
 
+  public toString(): string {
+    return 'Hello from ApiService';
+  }
 
-    constructor(private readonly httpService: HttpService) { }
+  async auth() {
+    const responseData = await lastValueFrom(
+      this.httpService.get('https://dummyjson.com/products').pipe(
+        map((response) => {
+          return response.data.products;
+        }),
+      ),
+    );
 
-    public toString(): string {
-        return "Hello from ApiService";
-    }
-
-    async auth() {
-
-        const responseData = await lastValueFrom(
-            this.httpService.get('https://dummyjson.com/products').pipe(
-                map((response) => {
-                    return response.data;
-                }),
-            ),
-        );
-
-        console.log(responseData);
-
-
-
-    }
+    return responseData;
+  }
 }

@@ -1,6 +1,5 @@
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ApiModule } from './api.module';
 import { ApiService } from './api.service';
 
 describe('ApiService', () => {
@@ -15,8 +14,6 @@ describe('ApiService', () => {
     service = module.get<ApiService>(ApiService);
     console.log(service.toString());
     await service.auth();
-
-
   });
 
   it('should be defined', () => {
