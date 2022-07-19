@@ -4,7 +4,7 @@ import { lastValueFrom, map } from 'rxjs';
 
 @Injectable()
 export class ApiService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(private readonly httpService: HttpService) { }
 
   public toString(): string {
     return 'Hello from ApiService';
@@ -19,6 +19,10 @@ export class ApiService {
       ),
     );
 
-    return responseData;
+    
+
+    console.log();
+
+
   }
 }

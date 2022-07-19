@@ -8,7 +8,7 @@ import { Role } from '../../types';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector, private userServices: UserService) {}
+  constructor(private reflector: Reflector, private userServices: UserService) { }
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const requireRoles = this.reflector.getAllAndOverride<Role[]>('roles', [context.getHandler(), context.getClass()]);
 
@@ -18,7 +18,7 @@ export class RolesGuard implements CanActivate {
     const { user } = context.switchToHttp().getRequest();
     if (!user) return;
 
-    let localUserRoles = [await this.userServices.getRoleById(user.userId)];
+    let localUserRoles = [this.userServices.getRoleById(user.userId)];
 
     return requireRoles.some((role) => localUserRoles.includes(role));
   }
