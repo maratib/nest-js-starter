@@ -5,7 +5,7 @@ import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
 export class AuthMiddleware implements NestMiddleware {
   private readonly logger = new Logger(this.constructor.name);
 
-  constructor() {}
+  constructor() { }
   async use(req: Request | any, res: Response, next: () => void) {
     this.logger.debug('Going through middleware');
 

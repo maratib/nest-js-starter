@@ -22,10 +22,10 @@ export class AuthService {
    * @date 13/07/2022 - 4:22:52 pm
    *
    * @param {*} user
-   * @returns {{ access_token: any; }}
+   * @returns {{ accessToken: any; }}
    */
   generateToken(user: any) {
     const payload = { username: user.email, sub: user.id };
-    return { access_token: this.jwtTokenService.sign(payload) };
+    return { accessToken: this.jwtTokenService.sign(payload) };
   }
 }
